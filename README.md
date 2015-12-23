@@ -1,2 +1,4 @@
 # PercomlabSlotMachine
-Pervasive Computing Laboratory 聖誕節拉霸機
+Pervasive Computing Laboratory 
+聖誕節拉霸機
+
