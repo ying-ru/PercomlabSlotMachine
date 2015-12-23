@@ -1,0 +1,101 @@
+
+<!-- saved from url=(0051)http://ts1.cmrdb.cs.pu.edu.tw/~binda/slot/slot.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" hola_ext_inject="disabled"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<title>PerCom Lab 抽順序</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2.0">
+	<link rel="stylesheet" href="files/bootstrap.min.css" type="text/css" media="screen">
+	<link rel="stylesheet" href="files/style.css" type="text/css" media="screen">
+	<script type="text/javascript" async="" src="files/ga.js"></script>
+	<script type="text/javascript" src="files/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="files/bootstrap.min.js"></script>
+	<script type="text/javascript" src="files/jquery.slotmachine.js"></script>
+	<link href="files/bootstrap-dialog.min.css" rel="stylesheet" type="text/css">
+	<script src="files/bootstrap-dialog.min.js"></script>
+</head>
+
+<body>
+<span id="Sound"></span>
+	<div style="text-align:center;background-color:#d5242e;width:100%;height:12%;">
+		<div class="line">
+			
+		</div>
+	</div>
+	<div class="back" style="height:88%;width:100%;">
+		<div class="content container" style="text-align: center">	
+			<div class="row">
+
+				<div class="col-xs-12 col-md-9 col-md-offset-2  slotmachineimg">
+					<!--black  box-->
+					<div class="col-md-8 col-md-offset-1 machineContainer">
+						<div id="machine1" class="slotMachine">
+							<div class="slot slot1"></div>
+							<div class="slot slot2"></div>
+							<div class="slot slot3"></div>
+							<div class="slot slot4"></div>
+							<div class="slot slot5"></div>
+							<div class="slot slot6"></div>
+							<div class="slot slot7"></div>
+							<div class="slot slot8"></div>
+							<div class="slot slot9"></div>
+							<div class="slot slot10"></div>
+						</div>
+					</div>	
+					<div class="col-md-2 col-md-offset-1" style="left:14px;top:10px;">
+						<div id="slotMachineButton1" class="button"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		$(document).ready(function(){
+			arr = new Array(1);
+			var showed = new Array();
+			lock = false;
+			
+			var machine1 = $("#machine1").slotMachine({
+				active	: 0,
+				delay	: 500
+			});
+
+			function onComplete(active){
+				x = this.active;
+				if(this.element[0].id=='machine1'){
+					arr[0]=x;
+					console.log("0="+arr[0]);
+					
+					$("#machine1Result").text("Index: "+x);						
+				}
+			}
+			
+			function onlock(active){
+				lock=false ;
+			}
+
+			function getsound(){
+				console.log('SOUND');
+				$('#Sound').html('<embed id="audio" src="files/audio/123.wav" width="0" height="0" >');
+			}
+
+			$("#slotMachineButton1").click(
+				function(){
+					if(lock==false){
+						lock = true ;
+
+						//down & up
+						$(this).animate({ top: 70, height:'130px',width:'130px',fontSize: 100, 'line-height':'200px',duration: '5000', easing: 'easeOutBounce'},500);
+						$(this).animate({ top: 0 , height:'100px',width:'100px',fontSize: 60,'line-height':'150px',duration: '5000', easing: 'easeOutBounce'}, 500);
+						getsound();
+						//轉
+						machine1.shuffle(1,onComplete);		
+						setTimeout(function(){onlock();}, 1500);
+						console.log("-----------------------------------------------");
+						
+					}
+				}
+			)
+		});
+</script>
+</body>
+</html>
